@@ -11,3 +11,5 @@ Steps:
 8. Add Props to the components
 9. Create input fields in the ModalForm
 10. Handle the input in the ModalForm and finishing the frontend version 1.0
+11. Create backend folder, install in the folder typescript, express, dotenv
+12. Folder structure
