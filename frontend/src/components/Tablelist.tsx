@@ -1,10 +1,10 @@
 import { Client } from "../assets/types";
 
 type TableListProps = {
-  handleOpen: (mode:string) => void
+  onOpen: (mode:string) => void
 }
 
-const TableList = ({handleOpen}: TableListProps) => {
+const TableList = ({onOpen}: TableListProps) => {
   
     const clients: Client[] = [
         {id: 1, name: "John Doe", email: "John.Doe@gmail.com" , job: "Developer", rate:"100", isactive: true},
@@ -41,7 +41,7 @@ const TableList = ({handleOpen}: TableListProps) => {
                 </button>
               </td>
               <td>
-                <button className="btn btn-secondary" onClick={() => handleOpen('edit')}>Update</button>
+                <button className="btn btn-secondary" onClick={() => onOpen('edit')}>Update</button>
               </td>
               <td>
                 <button className="btn btn-accent">Delete</button>

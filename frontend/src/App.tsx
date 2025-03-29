@@ -4,9 +4,10 @@ import ModalForm from './components/ModalForm'
 import NavBar from './components/NavBar'
 import TableList from './components/TableList'
 
+
 function App() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [modalMode, setModalMode] = useState('add')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [modalMode, setModalMode] = useState<string>('add')
 
   const handleOpen = (mode:string) => {
     setModalMode(mode)
@@ -24,12 +25,12 @@ function App() {
   return (
     <>
       <NavBar onOpen={() => handleOpen('add')}/>
-      <TableList handleOpen={handleOpen}/>
+      <TableList onOpen={handleOpen}/>
       <ModalForm 
       isOpen={isOpen}
+      mode={modalMode}  
       onSubmit={handleSubmit} 
       onClose={() => setIsOpen(false)}
-      mode={modalMode}  
       />
     </>
   )
