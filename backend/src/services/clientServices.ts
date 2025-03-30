@@ -24,7 +24,7 @@ export const createClient = async(clientData:Client) => {
     return rows[0]
 }
 
-export const updateClient = async(clientData:Client, clientId:number) => {
+export const updateClient = async(clientData:Client, clientId:string) => {
     const { name, email, job, rate, isactive } = clientData
     const { rows } = await query(
         `UPDATE clients_tb SET name = $1, email = $2, job = $3, rate = $4, isactive = $5)

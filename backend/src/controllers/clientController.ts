@@ -25,6 +25,12 @@ export const createClient = async (req: Request, res: Response) => {
 export const updateClient = async (req: Request, res: Response) => {
     try {
         const clientId = req.params.id
+        const clientData = req.body
+        const updatedClient = await clientService.updateClient(clientData, clientId)
+        if (!updateClient) {
+            return res.status(404).json({ message: 'Client not found'})
+        }
+        res.status(200).json(updatedClient)
         
     } catch (err) {
         console.error("Error fetching clients:", err)
