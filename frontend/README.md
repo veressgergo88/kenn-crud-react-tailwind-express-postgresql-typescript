@@ -32,6 +32,6 @@ Steps:
             ('Bob Smith', 'bob.smith@example.com', 'Product Manager', 150.00, TRUE),
             ('Charlie Davis', 'charlie.davis@example.com', 'Designer', 90.00, TRUE),
             ('Dana Lee', 'dana.lee@example.com', 'Data Analyst', 110.00, FALSE),
-            ('Eve Martin', 'eve.martin@example.com', 'HR Specialist', 100.00, TRUE),
+            ('Eve Martin', 'eve.martin@example.com', 'HR Specialist', 100.00, TRUE);
 17. Create .env in the backend source folder
 18. Connect the database and api the data
