@@ -3,11 +3,12 @@ import './App.css'
 import ModalForm from './components/ModalForm'
 import NavBar from './components/NavBar'
 import TableList from './components/TableList'
-
+import axios from 'axios'
 
 function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [modalMode, setModalMode] = useState<string>('add')
+  const [searchTerm, setSearchTerm] = useState<string | number>("")
 
   const handleOpen = (mode:string) => {
     setModalMode(mode)
@@ -24,8 +25,8 @@ function App() {
 
   return (
     <>
-      <NavBar onOpen={() => handleOpen('add')}/>
-      <TableList onOpen={handleOpen}/>
+      <NavBar onOpen={() => handleOpen('add')} onSearch={setSearchTerm}/>
+      <TableList onOpen={handleOpen} searchTerm={searchTerm}/>
       <ModalForm 
       isOpen={isOpen}
       mode={modalMode}  
