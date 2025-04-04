@@ -4,20 +4,19 @@ import axios from 'axios'
 
 type TableListProps = {
   onOpen: (mode:string) => void
-  searchTerm: string | number
+  filter: string
 }
 
-const TableList = ({onOpen, searchTerm}: TableListProps) => {
+const TableList = ({onOpen, filter}: TableListProps) => {
     const [tableData, setTableData] = useState<Client[]>([])
-    const [error, setError] = useState(null)
-
+    
     useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await axios.get('http://localhost:3000/api/clients')
           setTableData(response.data)
         } catch (err) {
-          setError(err.message)
+          console.error('The list cannot be displayed', err)
         }
       }
 
@@ -25,15 +24,14 @@ const TableList = ({onOpen, searchTerm}: TableListProps) => {
     }, [])
 
     const filterData = tableData.filter(client => 
-      client.name.toLowerCase().includes(searchTerm.toString().toLowerCase()) ||
-      client.email.toLowerCase().includes(searchTerm.toString().toLowerCase()) ||
-      client.job.toLowerCase().includes(searchTerm.toString().toLowerCase())
+      client.name.toLowerCase().includes(filter.toLowerCase()) ||
+      client.email.toLowerCase().includes(filter.toLowerCase()) ||
+      client.job.toLowerCase().includes(filter.toLowerCase()) ||
+      client.rate.toString().toLowerCase().includes(filter.toLowerCase())
     )
 
     return (
       <>
-      {error && <div className="alert alert-error">{error}</div>}  
-
       <div className="overflow-x-auto mt-10">
         <table className="table">
           {/* head */}

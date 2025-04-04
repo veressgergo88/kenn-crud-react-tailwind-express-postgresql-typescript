@@ -1,11 +1,11 @@
 type NavBarProps = {
   onOpen: () => void
-  onSearch: string | number
+  onFilterChange: (value: string) => void
 }
 
-const NavBar = ({onOpen, onSearch}: NavBarProps) => {
+const NavBar = ({onOpen, onFilterChange}: NavBarProps) => {
   const handleSearchChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    onSearch(event.target.value)
+    onFilterChange(event.target.value)
   }
 
   return (

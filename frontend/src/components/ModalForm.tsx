@@ -1,18 +1,26 @@
 import { useState } from "react";
+import { Client } from "../assets/types";
 
 type ModalFormProps = {
     isOpen: boolean,
+    mode: string,
     onClose: () => void,
-    onSubmit: () => void,
-    mode: string
 }
 
-const ModalForm = ({isOpen, onClose, onSubmit, mode}: ModalFormProps) => {
+const ModalForm = ({isOpen, onClose, mode}: ModalFormProps) => {
   const [rate, setRate] = useState<string>('')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [job, setJob] = useState<string>('')
   const [status, setStatus] = useState<boolean>(false)
+  const [clientData, setClientData] = useState<Client>({
+    id: 0,
+    name: "",
+    email: "",
+    job: "",
+    rate: "",
+    isactive: false
+  })
   
   const handleStatusChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value === 'Active')
@@ -20,6 +28,7 @@ const ModalForm = ({isOpen, onClose, onSubmit, mode}: ModalFormProps) => {
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
+    console.log(e)
     onClose()
   }
 
