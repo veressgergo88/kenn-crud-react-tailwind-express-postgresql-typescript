@@ -38,3 +38,4 @@ Steps:
 19. Install Axios on the frontend side
 20. Api data from PostgreSQL database to TableList
 21. Filtered the data in the Search field
+22. Post the new Client data

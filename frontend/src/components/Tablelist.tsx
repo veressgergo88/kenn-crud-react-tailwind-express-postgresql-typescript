@@ -30,6 +30,18 @@ const TableList = ({onOpen, filter}: TableListProps) => {
       client.rate.toString().toLowerCase().includes(filter.toLowerCase())
     )
 
+    const handleDelete = async (id:number) => {
+      const confirmDelete = window.confirm("Are you sure you want to delete this client?")
+      if (confirmDelete) {
+        try {
+          await axios.delete(`http://localhost:3000/api/clients/${id}`)
+          setTableData((prevData) => prevData.filter(client => client.id !== id))
+        } catch (err) {
+          console.error('Error deleting client', err)
+        }
+      }
+    }
+
     return (
       <>
       <div className="overflow-x-auto mt-10">
@@ -48,7 +60,7 @@ const TableList = ({onOpen, filter}: TableListProps) => {
           <tbody className="hover">
             {/* row 1 */}
             {filterData.map((client) => (
-              <tr>
+              <tr key={client.id}>
                 <th>{client.id}</th>
                 <td>{client.name}</td>
                 <td>{client.email}</td>
@@ -60,10 +72,10 @@ const TableList = ({onOpen, filter}: TableListProps) => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-secondary" onClick={() => onOpen('edit')}>Update</button>
+                  <button className="btn btn-secondary" onClick={() => onOpen('edit', client)}>Update</button>
                 </td>
                 <td>
-                  <button className="btn btn-accent">Delete</button>
+                  <button className="btn btn-accent" onClick={() => handleDelete(client.id)}>Delete</button>
                 </td>
               </tr>
             ))}

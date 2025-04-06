@@ -1,26 +1,27 @@
-import { useState } from "react";
-import { Client } from "../assets/types";
+import { useEffect, useState } from "react";
+
+type Client = {
+  name: string,
+  email: string,
+  job: string,
+  rate: number,
+  isactive: boolean
+}
 
 type ModalFormProps = {
     isOpen: boolean,
-    mode: string,
     onClose: () => void,
+    OnSubmit: (newClientData:Client) => void,
+    mode: string,
+    clientData: Client
 }
 
-const ModalForm = ({isOpen, onClose, mode}: ModalFormProps) => {
-  const [rate, setRate] = useState<string>('')
+const ModalForm = ({isOpen, onClose, OnSubmit, mode, clientData}: ModalFormProps) => {
+  const [rate, setRate] = useState<number>(0)
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [job, setJob] = useState<string>('')
   const [status, setStatus] = useState<boolean>(false)
-  const [clientData, setClientData] = useState<Client>({
-    id: 0,
-    name: "",
-    email: "",
-    job: "",
-    rate: "",
-    isactive: false
-  })
   
   const handleStatusChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value === 'Active')
@@ -28,9 +29,26 @@ const ModalForm = ({isOpen, onClose, mode}: ModalFormProps) => {
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
-    console.log(e)
+    clientData = { name, email, job, rate: Number(rate), isactive: status}
+    OnSubmit(clientData)
     onClose()
   }
+
+  useEffect(() => {
+    if (mode === 'edit' && clientData){
+      setName(clientData.name)
+      setEmail(clientData.email)
+      setJob(clientData.job)
+      setRate(clientData.rate)
+      setStatus(clientData.isactive)
+    } else {
+      setName("")
+      setEmail("")
+      setJob("")
+      setRate(0)
+      setStatus(false)
+    }
+  }, [mode, clientData])
 
   return (
     <>
@@ -54,7 +72,7 @@ const ModalForm = ({isOpen, onClose, mode}: ModalFormProps) => {
             <div className="flex mb-4 justify-between gap-4">
               <label className="input input-bordered flex items-center">
                 Rate
-                <input type="number" className="grow" value={rate} onChange={(e) => setRate(e.target.value)}/>
+                <input type="number" className="grow" value={rate} onChange={(e) => setRate(parseInt(e.target.value))}/>
               </label>
               <select className="select select-bordered" value={status ? 'Active' : 'Inactive'} onChange={handleStatusChange}>
                 <option>Inactive</option>
